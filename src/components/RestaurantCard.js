@@ -10,9 +10,9 @@ const RestaurantCard =(props)=> {
     avgRating,
     sla,
     costForTwo
-  } = resData;
+  } = resData?.info;
 
-const costInRupees = costForTwo /100;
+
 
 const formatDeliveryTime = (time) => {
   if (!time) return "N/A";
@@ -36,7 +36,7 @@ const formatDeliveryTime = (time) => {
       <h4>{cuisines?.join(", ")}</h4>
 
       <h4>{avgRating} ⭐</h4>
-      <h4>{costInRupees} For Two</h4>
+      <h4>{costForTwo} </h4>
       {/* <h4>{sla?.deliveryTime} Mins</h4> */}
       <h4>{formatDeliveryTime(sla?.deliveryTime)}</h4>
     </div>

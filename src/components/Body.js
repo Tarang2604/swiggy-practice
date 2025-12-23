@@ -4,7 +4,7 @@ import Shimmer from "./Shimmer";
 
 const Body = () => {
   const [listofRestaurants, setListofRestaurant] = useState([]);
-   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
  
   //Whenever state Variables updates, react triggers a reconciliation cycle (re-render the component)
@@ -13,18 +13,24 @@ const Body = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
+ 
   const fetchData = async () => {
     const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/search/v3?lat=23.3410822&lng=75.02278059999999&str=restaurants&trackingId=0729343f-5489-b293-4144-244bbafb47f4&submitAction=ENTER&queryUniqueId=61d57d0e-083d-2ebf-fddd-79d81ee73e60"
+      // "https://www.swiggy.com/dapi/restaurants/search/v3?lat=23.3410822&lng=75.02278059999999&str=restaurants&trackingId=0729343f-5489-b293-4144-244bbafb47f4&submitAction=ENTER&queryUniqueId=61d57d0e-083d-2ebf-fddd-79d81ee73e60"
+      
+
+      " https://corsproxy.io/https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.3413908&lng=75.023311&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
     );
 
     const json = await data.json();
+    console.log(
+      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
 
-    console.log(json);
+    // console.log(json);
     setListofRestaurant(
-      json?.data?.cards[1]?.groupedCard?.cardGroupMap?.RESTAURANT?.cards);
-      setFilteredRestaurants(json?.data?.cards[1]?.groupedCard?.cardGroupMap?.RESTAURANT?.cards);
+      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+      setFilteredRestaurants(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
   };
 
   if (listofRestaurants.length == 0) {
@@ -74,8 +80,8 @@ const Body = () => {
       <div className="res-container">
         {filteredRestaurants.map((restaurant) => (
           <RestaurantCard
-            key={restaurant.card?.card?.info?.id}
-            resData={restaurant.card?.card?.info}
+            key={restaurant.info.id}
+            resData={restaurant}
           />
         ))}
       </div>
