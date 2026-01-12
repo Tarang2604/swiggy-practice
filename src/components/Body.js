@@ -16,10 +16,7 @@ const Body = () => {
  
   const fetchData = async () => {
     const data = await fetch(
-      // "https://www.swiggy.com/dapi/restaurants/search/v3?lat=23.3410822&lng=75.02278059999999&str=restaurants&trackingId=0729343f-5489-b293-4144-244bbafb47f4&submitAction=ENTER&queryUniqueId=61d57d0e-083d-2ebf-fddd-79d81ee73e60"
-      
-
-      " https://corsproxy.io/https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.3413908&lng=75.023311&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.668866948481604&lng=75.82979053258896&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
     );
 
     const json = await data.json();
@@ -29,13 +26,20 @@ const Body = () => {
 
     // console.log(json);
     setListofRestaurant(
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
-      setFilteredRestaurants(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
+    setFilteredRestaurants(
+      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
   };
 
-  if (listofRestaurants.length == 0) {
+  // if (!listofRestaurants?.length == 0) {
+  //   return <Shimmer />;
+  if (!filteredRestaurants?.length) {
     return <Shimmer />;
   }
+
+  
 
   return (
     <div className="body">
@@ -52,13 +56,13 @@ const Body = () => {
               //filter the restaurant cards
               //searchText
               const filteredRestaurants = listofRestaurants.filter(
-                (res)=>
-                  res?.card?.card?.info?.name
-                ?.toLowerCase()
-                .includes(searchText.toLowerCase())
+                (res) =>
+                  res?.info?.name
+                    ?.toLowerCase()
+                    .includes(searchText.toLowerCase())
               );
              
-                setFilteredRestaurants(filteredRestaurants);
+              setFilteredRestaurants(filteredRestaurants);
             }}
           >
             Search
@@ -68,9 +72,9 @@ const Body = () => {
           className="filter-btn"
           onClick={() => {
             const filteredList = listofRestaurants.filter(
-              (res) => res.card?.card?.info?.avgRating > 4
+              (res) => res.info?.avgRating > 4
             );
-            setListofRestaurant(filteredList);
+            setFilteredRestaurants(filteredList);
             console.log(listofRestaurants);
           }}
         >
@@ -78,9 +82,9 @@ const Body = () => {
         </button>
       </div>
       <div className="res-container">
-        {filteredRestaurants.map((restaurant) => (
+        {filteredRestaurants?.map((restaurant) => (
           <RestaurantCard
-            key={restaurant.info.id}
+            key={restaurant?.info?.id}
             resData={restaurant}
           />
         ))}
@@ -88,6 +92,5 @@ const Body = () => {
     </div>
   );
 };
+
 export default Body;
-
-
