@@ -1,0 +1,55 @@
+{
+  "data": {
+    "cards": [
+      {},
+      {},
+      {
+        "card": {
+          "card": {
+            "info": {
+              "name": "Larelappa Restaurant",
+              "cuisines": ["South Indian", "Chinese"],
+              "costForTwoMessage": "₹200 for two"
+            }
+          }
+        }
+      },
+      {
+        "groupedCard": {
+          "cardGroupMap": {
+            "REGULAR": {
+              "cards": [
+                {
+                  "card": {
+                    "card": {
+                      "itemCards": [
+                        {
+                          "card": {
+                            "info": {
+                              "id": "1",
+                              "name": "Veg Biryani",
+                              "price": 15000
+                            }
+                          }
+                        },
+                        {
+                          "card": {
+                            "info": {
+                              "id": "2",
+                              "name": "Fried Rice",
+                              "price": 12000
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}

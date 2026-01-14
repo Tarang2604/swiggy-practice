@@ -77,3 +77,90 @@ Food Ordering App
 // };
 
 // export default Body;
+
+
+
+
+
+import { useEffect } from "react";
+
+const RestaurantMenu =() =>{
+
+    useEffect(() =>{
+        fetchMenu();
+    } ,[]);
+
+    const fetchMenu = async () =>{
+        const data = await fetch(
+            "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=23.339935&lng=75.0235505&restaurantId=238062&catalog_qa=undefined&submitAction=ENTER"
+        );
+       const json = await data.json(); 
+
+        console.log(json);
+    // }
+    return(
+        <div className="menu">
+            <h1>Name of the Restaurants </h1>
+            <h2>Menu</h2>
+            <ul>
+                <li>Biryani</li>
+                <li>Pav Bhaji</li>
+                <li>Rasgulla</li>
+                <li>Diet Coke</li>
+            </ul>
+        </div>
+    );
+};
+}
+export default RestaurantMenu;
+
+
+
+
+
+
+import { useState, useEffect } from "react";
+import Shimmer from "./Shimmer";
+
+const RestaurantMenu = () =>{
+    const [resInfo , setResInfo]= useState(null);
+
+    useEffect(()=>{
+        fetchMenu();
+    },[]);
+
+    const fetchMenu =  async ()=> {
+      const data = await fetch(
+        "https://corsproxy.io/?https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=23.339935&lng=75.0235505&restaurantId=194157&catalog_qa=undefined&submitAction=ENTER"
+      );
+      const json = await data.json();
+       
+      console.log(json);
+      setResInfo(json.data);
+    };
+    
+    return resInfo === null ?
+    (<Shimmer/>):(
+     <div className="Menu">
+        <h1>{resInfo.data.cards[2].card.card.info.name}</h1>
+        <h2>Menu</h2>
+        <ul>
+          <li>Biryani</li>
+          <li>Fried Rice</li>
+          <li>Manchurian</li>
+        </ul>
+     </div>
+    );
+};
+
+export default RestaurantMenu;
+
+
+
+  // const fetchMenu = async () => {
+  //   const res = await fetch(
+  //     "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=22.668866948481604&lng=75.82979053258896&restaurantId=806683&catalog_qa=undefined&submitAction=ENTER"
+  //   );
+  //   const json = await res.json();
+  //   setResInfo(json?.data);
+  // };
