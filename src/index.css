@@ -1,4 +1,4 @@
-.header{
+/* .header{
     align-items: center;
     display: flex;
   justify-content: space-between;
@@ -50,7 +50,7 @@
     padding: 5px;
     width: 200px;
     /* height: auto; */
-    min-height: 300px;
+    /* min-height: 300px;
     overflow: hidden;
     border-radius: 12px;
     box-shadow: 0 0 6px rgba(0,0,0,0.1);
@@ -148,4 +148,9 @@ login{
   background-color: #fee2e2;
   color: #7f1d1d;
   box-shadow: 0 0 6px rgba(239, 68, 68, 0.6);
-}
+} */ 
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+
+@import "tailwindcss";
