@@ -113,12 +113,12 @@
                                // Chat Gpt tailwind
 
 
-import { useState, useEffect } from "react";
+import { useState, useEffect , useContext} from "react";
 import RestaurantCard , {withPromotedLabel} from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
-
+import UserContext from "../utils/UserContext";
 const Body = () => {
   const [listofRestaurants, setListofRestaurant] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
@@ -131,14 +131,14 @@ const Body = () => {
   const fetchData = async () => {
     const data = await fetch(
       // "https://corsproxy.io/https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.668866948481604&lng=75.82979053258896&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-      // "https://corsproxy.io/https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.339935&lng=75.0235505&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+    
       "https://namastedev.com/api/v1/listRestaurants"
     );
     const json = await data.json();
 
     const restaurants =
       // json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
-        // ?.restaurants;
+      //   ?.restaurants;
        json?.data?.data?.cards?.[1]?.card?.card?.gridElements
     ?.infoWithStyle?.restaurants || [];
 
@@ -154,11 +154,14 @@ const Body = () => {
       </h1>
     );
   }
+   
+   const {loggedInUser, setUserName}= useContext(UserContext);
 
   if (!filteredRestaurants?.length) {
     return <Shimmer />;
   }
 
+ 
   return (
     <div className="px-6 py-4 max-w-7xl mx-auto">
       {/* Filter Section */}
@@ -186,9 +189,8 @@ const Body = () => {
             Search
           </button>
         </div>
-
-        {/* Top Rated Button */}
-        <button
+        <div className="search m-4 p-4 flex items-center">
+           <button
           className="px-6 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition"
           onClick={() => {
             const filteredList = listofRestaurants.filter(
@@ -199,8 +201,14 @@ const Body = () => {
         >
           ⭐ Top Rated Restaurants
         </button>
+        </div>
+        <div className="search m-4 p-4 flex items-center">
+          <label className="font-semibold">UserName : </label>
+          <input className="border border-black p-2 " 
+          value={loggedInUser} onChange={(e)=> setUserName(e.target.value)}></input>
+        </div>
       </div>
-
+      
       {/* Restaurants Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {filteredRestaurants.map((restaurant) => (

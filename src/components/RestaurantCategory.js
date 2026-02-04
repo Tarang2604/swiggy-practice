@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ItemList from "./ItemList";
 
-const RestaurantCategory =({data , showItems , setShowIndex})=>{
+const RestaurantCategory =({data , showItems , setShowIndex , dummy })=>{
   //BEfore this swtShowIndex accordian controlling themselfes but after the setShowIndex it is controlled by the parents (restaurantMenu.js).with the help of setshowItems.  
   
   // const[showItems, setShowItems]= useState(false);
@@ -20,7 +20,8 @@ const RestaurantCategory =({data , showItems , setShowIndex})=>{
             </span>
             <span>⬇️</span>
             </div>
-            {showItems && <ItemList items= {data.itemCards}/>}
+            {showItems && <ItemList items= {data.itemCards} dummy ={dummy}/>}
+            
           </div>
         </div>
     )

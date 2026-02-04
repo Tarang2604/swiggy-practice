@@ -61,7 +61,7 @@
 // root.render(<RouterProvider router = {appRouter}/>);
 
 
-
+import { useState, useEffect } from "react";
 import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { Header } from "./components/Header.js";
@@ -76,18 +76,31 @@ import {
   Outlet,
 } from "react-router-dom";
 import "./index.css";
+import UserContext from "./utils/UserContext.js";
 
 const Grocery = lazy(() => import("./components/Grocery.js"));
 
 /* ---------- App Layout ---------- */
 const AppLayout = () => {
+const[userName , setUserName] = useState();
+
+useEffect(() => {
+  const data = {
+    name : "Tarang Upadhyay",
+  };
+  setUserName(data.name);
+}, []);
+
   return (
+    <UserContext.Provider value = {{ loggedInUser : userName , setUserName}}>
     <div className="min-h-screen bg-gray-50">
       <Header />
       <main className="max-w-7xl mx-auto px-4 py-6">
         <Outlet />
       </main>
+
     </div>
+    </UserContext.Provider>
   );
 };
 

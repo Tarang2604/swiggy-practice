@@ -8,12 +8,12 @@ class UserClass extends React.Component{
                 location:"Default"
             },
         };
-        console.log(" Child Constructor");
+        
         
     }
 
     async componentDidMount(){
-        console.log("Child ComponentDidMount");
+        // console.log("Child ComponentDidMount");
         // Api call
         const data = await fetch ("https://api.github.com/users/Tarang2604");
         const json = await data.json();
@@ -24,10 +24,10 @@ class UserClass extends React.Component{
         console.log(json);
     }
     componentDidUpdate(){
-        console.log("ComponentDidUpdate")
+        // console.log("ComponentDidUpdate")
     }
     render(){
-       console.log(" child Render");
+    //    console.log(" child Render");
        
        const{name,location,avatar_url}= this.state.UserInfo
         return(

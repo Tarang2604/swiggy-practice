@@ -75,9 +75,12 @@
 
 
 
+import { useContext } from "react";
 import { CDN_URL } from "../utils/constants";
+import UserContext from "../utils/UserContext";
 
 const RestaurantCard = ({ resData }) => {
+  const {loggedInUser} = useContext(UserContext);
   const {
     cloudinaryImageId,
     name,
@@ -128,9 +131,13 @@ const RestaurantCard = ({ resData }) => {
           <span className="flex items-center gap-1">
             ⏱ {formatDeliveryTime(sla?.deliveryTime)}
           </span>
+          <h4>User:{loggedInUser}</h4>
         </div>
       </div>
+      
     </div>
+
+
   );
 };
 
