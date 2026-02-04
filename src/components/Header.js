@@ -116,7 +116,7 @@ console.log(loggedInUser);
               <li key={item.name}>
                 <Link
                   to={item.path}
-                  className="relative after:absolute after:left-0 after:-bottom-1 after:h-[2px]
+                  className="relative after:absolute after:left-0 after:-bottom-1 after:h-0.5
                              after:w-0 after:bg-orange-500 after:transition-all
                              hover:after:w-full hover:text-orange-500"
                 >

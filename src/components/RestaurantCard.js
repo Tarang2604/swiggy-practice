@@ -97,12 +97,12 @@ const RestaurantCard = ({ resData }) => {
   };
 
   return (
-    <div className="group w-[260px] rounded-2xl bg-white shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden">
+    <div className="group w-65 rounded-2xl bg-white shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden">
       
       {/* Image Section */}
       <div className="relative">
         <img
-          className="h-[160px] w-full object-cover group-hover:scale-105 transition-transform duration-300"
+          className="h-40 w-full object-cover group-hover:scale-105 transition-transform duration-300"
           src={CDN_URL + cloudinaryImageId}
           alt={name}
         />
