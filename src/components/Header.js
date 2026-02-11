@@ -61,14 +61,21 @@ import { LOGO_URL } from "../utils/constants";
 import { useState , useContext } from "react";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import UserContext from "../utils/UserContext";
+import { useSelector } from "react-redux";
 
 
 export const Header = () => {
   const [btnNameReact, setBtnNameReact] = useState("Login");
   const onlineStatus = useOnlineStatus();
 
+  
   const {loggedInUser} = useContext(UserContext);
 console.log(loggedInUser);
+
+const cartItems = useSelector((store)=>store.cart.items);
+
+
+
 
   return (
     <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg shadow-md">
@@ -126,10 +133,10 @@ console.log(loggedInUser);
             ))}
 
             {/* Cart */}
-            <li className="relative cursor-pointer hover:text-orange-500">
-              Cart
+            <li className="relative cursor-pointer hover:text-orange-500 font-bold ">
+              Cart🛒
               <span className="absolute -top-2 -right-3 rounded-full bg-orange-500 px-1.5 text-xs text-white">
-                0
+               {cartItems.length}
               </span>
             </li>
 

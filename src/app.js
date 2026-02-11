@@ -77,6 +77,9 @@ import {
 } from "react-router-dom";
 import "./index.css";
 import UserContext from "./utils/UserContext.js";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore.js";
+
 
 const Grocery = lazy(() => import("./components/Grocery.js"));
 
@@ -92,6 +95,7 @@ useEffect(() => {
 }, []);
 
   return (
+    <Provider store={appStore}>
     <UserContext.Provider value = {{ loggedInUser : userName , setUserName}}>
     <div className="min-h-screen bg-gray-50">
       <Header />
@@ -101,6 +105,8 @@ useEffect(() => {
 
     </div>
     </UserContext.Provider>
+    </Provider>
+    
   );
 };
 
