@@ -70,7 +70,7 @@ export const Header = () => {
 
   
   const {loggedInUser} = useContext(UserContext);
-console.log(loggedInUser);
+// console.log(loggedInUser);
 
 const cartItems = useSelector((store)=>store.cart.items);
 
@@ -134,10 +134,9 @@ const cartItems = useSelector((store)=>store.cart.items);
 
             {/* Cart */}
             <li className="relative cursor-pointer hover:text-orange-500 font-bold ">
-              Cart🛒
-              <span className="absolute -top-2 -right-3 rounded-full bg-orange-500 px-1.5 text-xs text-white">
-               {cartItems.length}
-              </span>
+             
+             <Link to= "/cart"> Cart🛒 -({cartItems.length}items)</Link>
+               
             </li>
 
             {/* Login Button */}

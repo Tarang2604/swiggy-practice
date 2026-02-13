@@ -1,112 +1,160 @@
-// import { useState, useEffect } from "react";
-// import RestaurantCard from "./RestaurantCard";
+// import { useState, useEffect, useContext } from "react";
+// import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
 // import Shimmer from "./Shimmer";
 // import { Link } from "react-router-dom";
 // import useOnlineStatus from "../utils/useOnlineStatus";
+// import UserContext from "../utils/UserContext";
 
 // const Body = () => {
 //   const [listofRestaurants, setListofRestaurant] = useState([]);
 //   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
 //   const [searchText, setSearchText] = useState("");
- 
-//   //Whenever state Variables updates, react triggers a reconciliation cycle (re-render the component)
-//   console.log("Body Rendered")
+
+//   const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
 
 //   useEffect(() => {
 //     fetchData();
 //   }, []);
- 
+
 //   const fetchData = async () => {
-//     const data = await fetch(
-//       "https://corsproxy.io/https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.668866948481604&lng=75.82979053258896&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-      // "https://corsproxy.io/https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.339935&lng=75.0235505&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-    // );
-
+//     const data = await fetch("https://namastedev.com/api/v1/listRestaurants");
 //     const json = await data.json();
-//     console.log(
-//       json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-//     );
 
-//     // console.log(json);
-//     setListofRestaurant(
-//       json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-//     );
-//     setFilteredRestaurants(
-//       json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-//     );
+//     const restaurants =
+//       json?.data?.data?.cards?.[1]?.card?.card?.gridElements
+//         ?.infoWithStyle?.restaurants || [];
+
+//     setListofRestaurant(restaurants);
+//     setFilteredRestaurants(restaurants);
 //   };
 
 //   const onlineStatus = useOnlineStatus();
-//   if
-//   (onlineStatus === false)
-//    return(<h1>Looks like You're Offline ! Check Your Internet Connection</h1>
 
-//    );
+//   if (!onlineStatus) {
+//     return (
+//       <div className="min-h-screen flex flex-col justify-center items-center bg-white text-center px-4">
+//         <h1 className="text-2xl md:text-3xl font-bold text-red-500">
+//           You're Offline 🚫
+//         </h1>
+//         <p className="text-gray-500 mt-2">
+//           Please check your internet connection
+//         </p>
+//       </div>
+//     );
+//   }
 
-//   // if (!listofRestaurants?.length == 0) {
-//   //   return <Shimmer />;
+//   const { loggedInUser, setUserName } = useContext(UserContext);
+
 //   if (!filteredRestaurants?.length) {
 //     return <Shimmer />;
 //   }
+
 //   return (
-//     <div className="body">
-//       <div className="filter flex">
-//         <div className="search m-4 p-4">
-//           <input
-//             type="text "
-//             className=" border border-solid border-black"
-//             value={searchText}
-//             onChange={(e) => setSearchText(e.target.value)}
-//           />
-//           <button
-//           className="px-4 py-2 bg-green-100 m-4 rounded-lg"
-//             onClick={() => {
-//               //filter the restaurant cards
-//               //searchText
-//               const filteredRestaurants = listofRestaurants.filter(
-//                 (res) =>
-//                   res?.info?.name
-//                     ?.toLowerCase()
-//                     .includes(searchText.toLowerCase())
-//               );
-             
-//               setFilteredRestaurants(filteredRestaurants);
-//             }}
-//           >
-//             Search
-//           </button>
+//     <div
+//       className="min-h-screen bg-cover bg-center bg-no-repeat"
+//       style={{
+//         backgroundImage:
+//           "url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1600&q=80')",
+//       }}
+//     >
+//       {/* overlay */}
+//       <div className="min-h-screen bg-white/70 backdrop-blur-sm">
+
+//         <div className="max-w-7xl mx-auto px-5 py-10">
+
+//           {/* Filter Panel */}
+//           <div className="bg-white/90 rounded-2xl shadow-xl p-6 mb-10">
+
+//             <div className="flex flex-col lg:flex-row gap-6 lg:items-center lg:justify-between">
+
+//               {/* Search */}
+//               <div className="flex gap-2 w-full lg:w-auto">
+//                 <input
+//                   type="text"
+//                   placeholder="Search restaurants..."
+//                   className="w-full lg:w-72 px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400"
+//                   value={searchText}
+//                   onChange={(e) => setSearchText(e.target.value)}
+//                 />
+
+//                 <button
+//                   className="px-6 py-2 bg-orange-500 text-white rounded-xl font-semibold hover:bg-orange-600 shadow-md transition"
+//                   onClick={() => {
+//                     const filtered = listofRestaurants.filter((res) =>
+//                       res?.info?.name
+//                         ?.toLowerCase()
+//                         .includes(searchText.toLowerCase())
+//                     );
+//                     setFilteredRestaurants(filtered);
+//                   }}
+//                 >
+//                   Search
+//                 </button>
+//               </div>
+
+//               {/* Top Rated */}
+//               <div>
+//                 <button
+//                   className="px-6 py-2 bg-yellow-400 text-black rounded-xl font-semibold hover:bg-yellow-500 shadow-md transition"
+//                   onClick={() => {
+//                     const filteredList = listofRestaurants.filter(
+//                       (res) => res.info?.avgRating > 4
+//                     );
+//                     setFilteredRestaurants(filteredList);
+//                   }}
+//                 >
+//                   ⭐ Top Rated
+//                 </button>
+//               </div>
+
+//               {/* Username */}
+//               <div className="flex items-center gap-3">
+//                 <label className="font-semibold text-gray-700">
+//                   User :
+//                 </label>
+//                 <input
+//                   className="border border-gray-300 px-3 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-400"
+//                   value={loggedInUser}
+//                   onChange={(e) => setUserName(e.target.value)}
+//                   placeholder="Your name"
+//                 />
+//               </div>
+
+//             </div>
+//           </div>
+
+//           {/* Restaurants Grid */}
+//           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+
+//             {filteredRestaurants.map((restaurant) => (
+//               <Link
+//                 key={restaurant?.info?.id}
+//                 to={"/restaurants/" + restaurant?.info?.id}
+//                 className="group"
+//               >
+//                 <div className="transition-all duration-300 group-hover:-translate-y-2 group-hover:scale-[1.03]">
+
+//                   {restaurant?.info?.promoted ? (
+//                     <RestaurantCardPromoted resData={restaurant} />
+//                   ) : (
+//                     <RestaurantCard resData={restaurant} />
+//                   )}
+
+//                 </div>
+//               </Link>
+//             ))}
+
+//           </div>
+
 //         </div>
-//         <div className="search m-4 p-4 flex items-center">
-//           <button
-//           className="px-4 py-2 bg-gray-50 rounded-lg"
-//           onClick={() => {
-//             const filteredList = listofRestaurants.filter(
-//               (res) => res.info?.avgRating > 4
-//             );
-//             setFilteredRestaurants(filteredList);
-//             console.log(listofRestaurants);
-//           }}
-//         >
-//           Top Rated Restaurants
-//         </button>
-//         </div>
-        
-//       </div>
-//       <div className="flex flex-wrap">
-//         {filteredRestaurants?.map((restaurant) => (
-//          <Link
-//          key={restaurant?.info?.id}
-//           to={"/restaurants/" + restaurant?.info?.id}><RestaurantCard
-            
-//             resData={restaurant}/></Link> 
-          
-//         ))}
 //       </div>
 //     </div>
 //   );
 // };
 
 // export default Body;
+
+
 
 
 
